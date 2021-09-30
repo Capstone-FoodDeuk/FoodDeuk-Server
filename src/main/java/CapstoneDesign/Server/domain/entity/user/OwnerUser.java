@@ -2,6 +2,7 @@ package CapstoneDesign.Server.domain.entity.user;
 
 import CapstoneDesign.Server.domain.entity.store.Store;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +19,8 @@ public class OwnerUser extends User{
     @JoinColumn(name = "store_id")
     private Store store;
 
-    public OwnerUser(String loginId, String password, String nickname, String phoneNumber, Store store) {
+    @Builder
+    public OwnerUser(String loginId, String password, String nickname, String phoneNumber) {
         super(loginId, password, nickname, phoneNumber);
         this.store = null;
     }
