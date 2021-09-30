@@ -17,7 +17,7 @@ public class ExceptionControllerAdvice {
         log.error("[exceptionHandle] ex", ex);
         ErrorResult errorResult = new ErrorResult(HttpStatus.BAD_REQUEST,
                 "유효성 검사 실패 : " + ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
-        return new ResponseEntity<>(errorResult, HttpStatus.BAD_REQUEST); // 2
+        return new ResponseEntity<>(errorResult, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({RuntimeException.class})
