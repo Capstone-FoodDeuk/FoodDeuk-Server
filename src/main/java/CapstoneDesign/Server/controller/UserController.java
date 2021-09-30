@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
+    // 해당 컨트롤러에서는 회원가입, 로그인만 처리한다. 이외 작업들은 Guest, Owner 각각에서 처리.
 
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
@@ -74,7 +75,7 @@ public class UserController {
         if (!passwordEncoder.matches(user.getPassword(), findUser.getPassword())) {
             throw new FailedToLoginException("잘못된 비밀번호입니다.");
         }
-        String token = jwtTokenProvider.createToken(findUser.getId(), findUser.getDTYPE());
+        String token = jwtTokenProvider.createToken(findUser.getLoginId(), findUser.getDTYPE());
         return new ApiResponse(HttpStatus.OK, "로그인 성공", token);
     }
 }
