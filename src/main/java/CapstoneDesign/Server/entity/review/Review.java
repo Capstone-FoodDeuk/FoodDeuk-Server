@@ -28,4 +28,15 @@ public class Review extends BaseTimeEntity {
 
     @Embedded
     private ReviewContent content;
+
+    /**
+     * create Review
+     */
+    public static Review createReview(Store store, GuestUser guestUser) {
+        Review review = new Review();
+        review.store = store;
+        store.getReviewList().add(review);
+        guestUser.getReviewList().add(review);
+        return review;
+    }
 }
