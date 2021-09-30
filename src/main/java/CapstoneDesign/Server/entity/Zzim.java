@@ -26,4 +26,14 @@ public class Zzim {
     private Store store;
 
     private Boolean isAlarmActive;
+
+    /**
+     * A 유저가 B 푸드트럭을 찜하는 경우 => Zzim(A, B);
+     */
+    public Zzim(GuestUser guestUser, Store store) {
+        this.user = guestUser;
+        this.store = store;
+        guestUser.getZzimList().add(this);
+        store.getZzimList().add(this);
+    }
 }
