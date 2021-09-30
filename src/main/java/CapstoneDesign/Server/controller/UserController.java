@@ -2,14 +2,13 @@ package CapstoneDesign.Server.controller;
 
 import CapstoneDesign.Server.config.auth.JwtTokenProvider;
 import CapstoneDesign.Server.domain.dto.ApiResponse;
+import CapstoneDesign.Server.domain.dto.UserLoginDTO;
 import CapstoneDesign.Server.domain.dto.UserSaveDTO;
 import CapstoneDesign.Server.domain.entity.user.GuestUser;
 import CapstoneDesign.Server.domain.entity.user.OwnerUser;
 import CapstoneDesign.Server.domain.entity.user.User;
 import CapstoneDesign.Server.domain.entity.user.UserRole;
-import CapstoneDesign.Server.exception.FailedToPwdCheckException;
-import CapstoneDesign.Server.exception.InvalidUserRoleException;
-import CapstoneDesign.Server.exception.LoginIdDuplicatedException;
+import CapstoneDesign.Server.exception.*;
 import CapstoneDesign.Server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,5 +61,20 @@ public class UserController {
                 .build();
         userRepository.save(guestUser);
         return new ApiResponse(HttpStatus.CREATED, "손님 유저 회원가입 성공", null);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/login")
+    public ApiResponse login(@RequestBody UserLoginDTO user) {
+
+        User findUser = userRepository.findUserByLoginId(user.getLoginId());
+        if (findUser == null) {
+            throw new UserNotFoundException("해당 유저가 존재하지 않습니다.");
+        }
+        if (!passwordEncoder.matches(user.getPassword(), findUser.getPassword())) {
+            throw new FailedToLoginException("잘못된 비밀번호입니다.");
+        }
+        String token = jwtTokenProvider.createToken(findUser.getId(), findUser.getDTYPE());
+        return new ApiResponse(HttpStatus.OK, "로그인 성공", token);
     }
 }
