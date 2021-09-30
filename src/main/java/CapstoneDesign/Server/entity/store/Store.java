@@ -48,4 +48,11 @@ public class Store {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Zzim> zzimList = new ArrayList<>();
+
+    /**
+     * set owner
+     */
+    public void ownedBy(OwnerUser owner) {
+        this.owner = owner;
+    }
 }
