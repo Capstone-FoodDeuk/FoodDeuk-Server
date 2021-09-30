@@ -1,4 +1,4 @@
-package CapstoneDesign.Server.entity;
+package CapstoneDesign.Server.domain.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

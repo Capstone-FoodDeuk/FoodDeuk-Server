@@ -1,7 +1,7 @@
-package CapstoneDesign.Server.entity;
+package CapstoneDesign.Server.domain.entity;
 
-import CapstoneDesign.Server.entity.store.Store;
-import CapstoneDesign.Server.entity.user.GuestUser;
+import CapstoneDesign.Server.domain.entity.store.Store;
+import CapstoneDesign.Server.domain.entity.user.GuestUser;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

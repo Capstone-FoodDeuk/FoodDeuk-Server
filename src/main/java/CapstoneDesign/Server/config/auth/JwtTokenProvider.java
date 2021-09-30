@@ -1,6 +1,6 @@
 package CapstoneDesign.Server.config.auth;
 
-import CapstoneDesign.Server.entity.user.UserRole;
+import CapstoneDesign.Server.domain.entity.user.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

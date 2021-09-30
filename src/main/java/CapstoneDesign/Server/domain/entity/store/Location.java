@@ -1,4 +1,4 @@
-package CapstoneDesign.Server.entity.store;
+package CapstoneDesign.Server.domain.entity.store;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,10 +9,9 @@ import javax.persistence.Embeddable;
 
 @Data
 @Embeddable
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class imageFile {
-
-    private String uploadFileName;
-    private String storeFileName;
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Location {
+    private Double longitude;
+    private Double latitude;
 }

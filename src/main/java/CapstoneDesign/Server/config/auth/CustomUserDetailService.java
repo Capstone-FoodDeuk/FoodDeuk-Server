@@ -1,6 +1,6 @@
 package CapstoneDesign.Server.config.auth;
 
-import CapstoneDesign.Server.entity.user.User;
+import CapstoneDesign.Server.domain.entity.user.User;
 import CapstoneDesign.Server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

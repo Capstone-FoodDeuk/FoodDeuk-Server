@@ -1,8 +1,7 @@
-package CapstoneDesign.Server.entity.review;
+package CapstoneDesign.Server.domain.entity.review;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;

@@ -1,4 +1,4 @@
-package CapstoneDesign.Server.entity.user;
+package CapstoneDesign.Server.domain.entity.user;
 
 import lombok.AccessLevel;
 import lombok.Getter;

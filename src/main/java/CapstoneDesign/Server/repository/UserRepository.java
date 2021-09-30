@@ -1,6 +1,6 @@
 package CapstoneDesign.Server.repository;
 
-import CapstoneDesign.Server.entity.user.User;
+import CapstoneDesign.Server.domain.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

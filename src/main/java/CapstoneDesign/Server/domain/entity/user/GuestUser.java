@@ -1,9 +1,8 @@
-package CapstoneDesign.Server.entity.user;
+package CapstoneDesign.Server.domain.entity.user;
 
-import CapstoneDesign.Server.entity.Zzim;
-import CapstoneDesign.Server.entity.review.Review;
+import CapstoneDesign.Server.domain.entity.Zzim;
+import CapstoneDesign.Server.domain.entity.review.Review;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -1,4 +1,4 @@
-package CapstoneDesign.Server.entity.review;
+package CapstoneDesign.Server.domain.entity.review;
 
 import lombok.RequiredArgsConstructor;
 
