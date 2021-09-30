@@ -21,4 +21,14 @@ public class Payment {
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod method;
+
+    /**
+     * use to add payment method
+     * A 푸드트럭이 결제방식(B)을 추가할 때 => Payment(A, B)
+     */
+    public Payment(Store store, PaymentMethod method) {
+        this.store = store;
+        this.method = method;
+        store.getPayments().add(this);
+    }
 }
