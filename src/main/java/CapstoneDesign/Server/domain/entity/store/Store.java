@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Store {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -22,7 +22,8 @@ public class OwnerUser extends User{
     @Builder
     public OwnerUser(String loginId, String password, String nickname, String phoneNumber) {
         super(loginId, password, nickname, phoneNumber);
-        this.store = null;
+        Store newStore = new Store();
+        this.store = newStore;
     }
 
     /**
