@@ -28,7 +28,7 @@ public abstract class User implements UserDetails {
     private String phoneNumber;
 
     @Column(name ="DTYPE", insertable = false, updatable = false)
-    private String DTYPE;
+    private UserRole DTYPE;
 
     public User(String loginId, String password, String nickname, String phoneNumber) {
         this.loginId = loginId;
