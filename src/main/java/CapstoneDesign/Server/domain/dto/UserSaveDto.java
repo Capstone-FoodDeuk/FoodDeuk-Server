@@ -1,5 +1,6 @@
 package CapstoneDesign.Server.domain.dto;
 
+import CapstoneDesign.Server.domain.entity.user.UserRole;
 import lombok.Data;
 
 import javax.validation.constraints.Max;
@@ -9,6 +10,8 @@ import javax.validation.constraints.Size;
 
 @Data
 public class UserSaveDto {
+
+    private UserRole role;
 
     @NotBlank
     private String loginId;
