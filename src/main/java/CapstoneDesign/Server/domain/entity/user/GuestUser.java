@@ -3,6 +3,7 @@ package CapstoneDesign.Server.domain.entity.user;
 import CapstoneDesign.Server.domain.entity.Zzim;
 import CapstoneDesign.Server.domain.entity.review.Review;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +23,9 @@ public class GuestUser extends User {
 
     @OneToMany(mappedBy = "user")
     private List<Zzim> zzimList = new ArrayList<>();
+
+    @Builder
+    public GuestUser(String loginId, String password, String nickname, String phoneNumber) {
+        super(loginId, password, nickname, phoneNumber);
+    }
 }
