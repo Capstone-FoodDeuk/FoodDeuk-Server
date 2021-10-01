@@ -27,19 +27,18 @@ public class StoreService {
     private final MenuService menuService;
 
     @Transactional
-    public void updateStoreInfo(Long storeId, String name, Category category, String registerNum, String description,
+    public void updateStoreInfo(Store store, String name, Category category, String registerNum, String description,
                                 List<MenuCreateDTO> createMenus, List<MenuUpdateDTO> updateMenus,
                                 List<MenuUpdateDTO> deleteMenus, List<PaymentMethod> payments) throws IOException {
 
-        Store findStore = storeRepository.findById(storeId).orElseThrow(() -> new NotFoundStoreException());
-        findStore.updateStoreInfo(name, category, registerNum, description);
+        store.updateStoreInfo(name, category, registerNum, description);
 
         /*
         메뉴 추가, 삭제, 수정 구현
          */
         if (!createMenus.isEmpty()) {
             for (MenuCreateDTO newMenu : createMenus) {
-                menuService.createMenu(newMenu, findStore);
+                menuService.createMenu(newMenu, store);
             }
         }
         if (!deleteMenus.isEmpty()) {
@@ -61,14 +60,14 @@ public class StoreService {
         결제수단 추가, 삭제 구현
          */
         for (PaymentMethod paymentMethod : payments) {
-            Payment payment = paymentRepository.findPaymentByStoreAndMethod(findStore, paymentMethod);
+            Payment payment = paymentRepository.findPaymentByStoreAndMethod(store, paymentMethod);
             if (payment != null) {
                 throw new DuplicatedMenuException("이미 존재하는 메뉴입니다");
             }
-            Payment newPayment = new Payment(findStore, paymentMethod);
+            Payment newPayment = new Payment(store, paymentMethod);
             paymentRepository.save(newPayment);
         }
-        List<Payment> removePayment = paymentRepository.findPaymentsByStore(findStore).stream()
+        List<Payment> removePayment = paymentRepository.findPaymentsByStore(store).stream()
                 .filter(payment -> !payments.contains(payment.getMethod()))
                 .collect(Collectors.toList());
         if (!removePayment.isEmpty()) {
