@@ -13,8 +13,15 @@ spring:
         #        show_sql: true
         format_sql: true
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+
 logging.level:
   org.hibernate.SQL: debug
 
 security:
   secretKey: CAPSTONE_DESIGN_SECRET
+
+file:
+  dir: /Users/ajyng/desktop/imageFile/

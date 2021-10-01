@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class imageFile {
+public class ImageFile {
 
     private String uploadFileName;
     private String storeFileName;

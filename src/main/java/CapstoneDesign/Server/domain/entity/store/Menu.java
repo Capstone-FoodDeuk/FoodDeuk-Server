@@ -23,6 +23,21 @@ public class Menu {
     private Long price;
 
     @Embedded
-    private imageFile image;
+    private ImageFile image;
     private Boolean soldOut;
+
+    public Menu(Store store, String name, Long price, Boolean soldOut) {
+        this.store = store;
+        this.name = name;
+        this.price = price;
+        this.soldOut = soldOut;
+        store.getMenuList().add(this);
+    }
+
+    /**
+     * set image
+     */
+    public void addImageFile(ImageFile imageFile) {
+        this.image = imageFile;
+    }
 }
