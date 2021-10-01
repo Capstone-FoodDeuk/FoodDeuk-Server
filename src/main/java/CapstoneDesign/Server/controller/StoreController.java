@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/store")
-public class StoreApiController {
+public class StoreController {
 
     private final StoreRepository storeRepository;
     private final MenuRepository menuRepository;

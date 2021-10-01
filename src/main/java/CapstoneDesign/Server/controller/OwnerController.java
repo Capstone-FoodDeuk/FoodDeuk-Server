@@ -20,7 +20,7 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/owner/store")
+@RequestMapping("/api/owner")
 public class OwnerController {
 
     private final StoreRepository storeRepository;
