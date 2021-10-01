@@ -1,5 +1,6 @@
 package CapstoneDesign.Server.service;
 
+import CapstoneDesign.Server.domain.dto.HomeStoreDTO;
 import CapstoneDesign.Server.domain.dto.MenuCreateDTO;
 import CapstoneDesign.Server.domain.dto.MenuUpdateDTO;
 import CapstoneDesign.Server.domain.entity.store.*;
@@ -25,6 +26,8 @@ public class StoreService {
     private final MenuRepository menuRepository;
     private final PaymentRepository paymentRepository;
     private final MenuService menuService;
+
+    private static final double LIMIT_DISTANCE = 2.0;
 
     @Transactional
     public void updateStoreInfo(Store store, String name, Category category, String registerNum, String description,
@@ -76,5 +79,12 @@ public class StoreService {
             }
         }
 
+    }
+
+    public List<HomeStoreDTO> getNearStore(Double latitude, Double longitude) {
+
+        List<HomeStoreDTO> nearStores = storeRepository.findActiveStoresByLocationLessThanDistance(
+                latitude, longitude, LIMIT_DISTANCE);
+        return nearStores;
     }
 }

@@ -1,31 +1,41 @@
 package CapstoneDesign.Server.controller;
 
 import CapstoneDesign.Server.config.auth.JwtTokenProvider;
-import CapstoneDesign.Server.domain.dto.ApiResponse;
-import CapstoneDesign.Server.domain.dto.UserLoginDTO;
-import CapstoneDesign.Server.domain.dto.UserSaveDTO;
+import CapstoneDesign.Server.domain.dto.*;
 import CapstoneDesign.Server.domain.entity.user.GuestUser;
 import CapstoneDesign.Server.domain.entity.user.OwnerUser;
 import CapstoneDesign.Server.domain.entity.user.User;
 import CapstoneDesign.Server.domain.entity.user.UserRole;
 import CapstoneDesign.Server.exception.*;
 import CapstoneDesign.Server.repository.UserRepository;
+import CapstoneDesign.Server.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
-    // 해당 컨트롤러에서는 회원가입, 로그인만 처리한다. 이외 작업들은 Guest, Owner 각각에서 처리.
+    // 해당 컨트롤러에서는 회원가입, 로그인, 홈 화면만 처리한다. 이외 작업들은 Guest, Owner 각각에서 처리.
 
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository<User> userRepository;
+    private final StoreService storeService;
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping()
+    public ApiResponse home(@RequestBody HomeRequestDTO location) {
+
+        List<HomeStoreDTO> result = storeService.getNearStore(location.getLatitude(), location.getLongitude());
+        return new ApiResponse(HttpStatus.OK, "지도화면 푸드트럭 데이터 조회 성공", result);
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/signup")
