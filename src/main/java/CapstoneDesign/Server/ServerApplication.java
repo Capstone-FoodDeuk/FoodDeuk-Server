@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.EntityManager;
 
-@SpringBootApplication
 @EnableJpaAuditing
+@SpringBootApplication
 public class ServerApplication {
 
 	public static void main(String[] args) {
