@@ -42,7 +42,7 @@ public abstract class User implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(this.DTYPE));
+        return Collections.singletonList(new SimpleGrantedAuthority(String.valueOf(this.DTYPE)));
     }
 
     @Override
