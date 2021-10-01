@@ -37,7 +37,7 @@ public class UserController {
         }
         User findUser = userRepository.findUserByLoginId(user.getLoginId());
         if (findUser != null) {
-            throw new LoginIdDuplicatedException("이미 존재하는 아이디입니다.");
+            throw new DuplicatedLoginIdException("이미 존재하는 아이디입니다.");
         }
         if (!user.getPwd().equals(user.getPwdCheck())) {
             throw new FailedToPwdCheckException("비밀번호가 일치하지 않습니다.");
