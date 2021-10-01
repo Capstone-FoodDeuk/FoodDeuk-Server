@@ -24,6 +24,5 @@ public class StoreDTO {
     private List<MenuUpdateDTO> updateMenus;
     private List<MenuUpdateDTO> deleteMenus;
 
-    private List<PaymentMethod> createPayment;
-    private List<PaymentMethod> deletePayment;
+    private List<PaymentMethod> payments;
 }
