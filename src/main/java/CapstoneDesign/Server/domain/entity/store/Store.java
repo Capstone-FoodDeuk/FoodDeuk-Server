@@ -1,8 +1,8 @@
 package CapstoneDesign.Server.domain.entity.store;
 
-import CapstoneDesign.Server.domain.entity.Zzim;
 import CapstoneDesign.Server.domain.entity.review.Review;
 import CapstoneDesign.Server.domain.entity.user.OwnerUser;
+import CapstoneDesign.Server.domain.entity.Zzim;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,5 +54,12 @@ public class Store {
      */
     public void ownedBy(OwnerUser owner) {
         this.owner = owner;
+    }
+
+    public void updateStoreInfo(String name, Category category, String registerNum, String description) {
+        this.name = name;
+        this.category = category;
+        this.registerNum = registerNum;
+        this.description = description;
     }
 }

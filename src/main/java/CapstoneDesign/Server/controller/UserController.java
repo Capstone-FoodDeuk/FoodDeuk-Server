@@ -70,7 +70,7 @@ public class UserController {
 
         User findUser = userRepository.findUserByLoginId(user.getLoginId());
         if (findUser == null) {
-            throw new UserNotFoundException("해당 유저가 존재하지 않습니다.");
+            throw new NotFoundUserException("해당 유저가 존재하지 않습니다.");
         }
         if (!passwordEncoder.matches(user.getPassword(), findUser.getPassword())) {
             throw new FailedToLoginException("잘못된 비밀번호입니다.");

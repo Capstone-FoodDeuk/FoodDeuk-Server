@@ -40,4 +40,10 @@ public class Menu {
     public void addImageFile(ImageFile imageFile) {
         this.image = imageFile;
     }
+
+    public void updateMenuInfo(String name, Long price, Boolean soldOut) {
+        this.name = name;
+        this.price = price;
+        this.soldOut = soldOut;
+    }
 }
