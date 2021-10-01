@@ -42,7 +42,7 @@ public class UserController {
     public ApiResponse join(@RequestBody UserSaveDTO user) {
 
         UserRole role = user.getRole();
-        if (role != UserRole.ROLE_GUEST && role != UserRole.ROLE_OWNER) {
+        if (role != UserRole.GUEST && role != UserRole.OWNER) {
             throw new InvalidUserRoleException("유효하지 않은 유저 타입입니다.");
         }
         User findUser = userRepository.findUserByLoginId(user.getLoginId());
@@ -53,7 +53,7 @@ public class UserController {
             throw new FailedToPwdCheckException("비밀번호가 일치하지 않습니다.");
         }
 
-        if (role == UserRole.ROLE_OWNER) {
+        if (role == UserRole.OWNER) {
             OwnerUser ownerUser = OwnerUser.builder()
                     .loginId(user.getLoginId())
                     .password(passwordEncoder.encode(user.getPwd()))
