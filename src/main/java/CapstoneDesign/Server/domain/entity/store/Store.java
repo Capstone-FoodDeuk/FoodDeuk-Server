@@ -3,7 +3,6 @@ package CapstoneDesign.Server.domain.entity.store;
 import CapstoneDesign.Server.domain.entity.review.Review;
 import CapstoneDesign.Server.domain.entity.user.OwnerUser;
 import CapstoneDesign.Server.domain.entity.Zzim;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -61,5 +60,14 @@ public class Store {
         this.category = category;
         this.registerNum = registerNum;
         this.description = description;
+    }
+
+    public void updateStoreOpenInfo(Location location, LocalDateTime closeTime) {
+        this.location = location;
+        this.closeTime = closeTime;
+    }
+
+    public void storeOpen(Boolean isActive) {
+        this.isActive = isActive;
     }
 }
