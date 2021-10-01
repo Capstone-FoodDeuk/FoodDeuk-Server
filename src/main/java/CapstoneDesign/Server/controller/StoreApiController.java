@@ -2,6 +2,7 @@ package CapstoneDesign.Server.controller;
 
 import CapstoneDesign.Server.config.annotation.TokenUser;
 import CapstoneDesign.Server.domain.dto.ApiResponse;
+import CapstoneDesign.Server.domain.dto.StoreDetailDTO;
 import CapstoneDesign.Server.domain.dto.StoreDetailMenuDTO;
 import CapstoneDesign.Server.domain.dto.StoreDetailReviewDTO;
 import CapstoneDesign.Server.domain.entity.store.PaymentMethod;
@@ -47,6 +48,18 @@ public class StoreApiController {
         List<StoreDetailMenuDTO> menuList = menuRepository.findMenuListByStoreId(findStore.getId()); // 메뉴 목록
         List<PaymentMethod> paymentMethods = paymentRepository.findPaymentMethodsByStoreId(findStore.getId()); // 결제수단 목록
         StoreDetailReviewDTO reviewSummary = reviewService.getReviewSummary(findStore); // 리뷰 종합 정보
-        
+
+        StoreDetailDTO result = StoreDetailDTO.builder()
+                .name(findStore.getName())
+                .category(findStore.getCategory())
+                .phoneNumber(ownerUser.getPhoneNumber())
+                .location(findStore.getLocation())
+                .closeTime(findStore.getCloseTime())
+                .zzimCheck(zzimCheck)
+                .menuList(menuList)
+                .paymentMethods(paymentMethods)
+                .reviewSummary(reviewSummary)
+                .build();
+        return new ApiResponse(HttpStatus.OK, "푸드트럭 상세페이지 조회 성공", result);
     }
 }
