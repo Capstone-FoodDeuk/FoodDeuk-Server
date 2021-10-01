@@ -2,16 +2,20 @@ package CapstoneDesign.Server.controller;
 
 import CapstoneDesign.Server.config.annotation.TokenUser;
 import CapstoneDesign.Server.domain.dto.ApiResponse;
+import CapstoneDesign.Server.domain.dto.StoreDetailMenuDTO;
 import CapstoneDesign.Server.domain.entity.store.Store;
 import CapstoneDesign.Server.domain.entity.user.GuestUser;
 import CapstoneDesign.Server.domain.entity.user.OwnerUser;
 import CapstoneDesign.Server.domain.entity.user.User;
 import CapstoneDesign.Server.exception.NotFoundStoreException;
+import CapstoneDesign.Server.repository.MenuRepository;
 import CapstoneDesign.Server.repository.StoreRepository;
 import CapstoneDesign.Server.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class StoreApiController {
 
     private final StoreRepository storeRepository;
+    private final MenuRepository menuRepository;
     private final UserService userService;
 
     @ResponseStatus(HttpStatus.OK)
@@ -32,7 +37,7 @@ public class StoreApiController {
         OwnerUser ownerUser = findStore.getOwner();
 
         boolean zzimCheck = userService.checkZzimStore(guestUser, findStore); // 해당 스토어 찜 여부
-        
+        List<StoreDetailMenuDTO> menuList = menuRepository.findMenuListByStoreId(findStore.getId());
 
     }
 }
