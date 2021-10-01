@@ -1,5 +1,6 @@
 package CapstoneDesign.Server.service;
 
+import CapstoneDesign.Server.domain.dto.OwnerReviewSummaryDTO;
 import CapstoneDesign.Server.domain.dto.ReviewContentDTO;
 import CapstoneDesign.Server.domain.dto.StoreDetailReviewDTO;
 import CapstoneDesign.Server.domain.entity.review.Kindness;
@@ -22,7 +23,7 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
-    public StoreDetailReviewDTO getReviewSummary(Store store) {
+    public StoreDetailReviewDTO getStoreReviewSummary(Store store) {
         List<ReviewContentDTO> contents = reviewRepository.findReviewContentsByStoreId(store.getId());
 
         Long userCount = contents.stream().count(); // 리뷰를 남긴 전체 유저 수
@@ -84,5 +85,31 @@ public class ReviewService {
         kindnessScore.put(kindness, kindnessCount);
 
         return new StoreDetailReviewDTO(userCount, totalScore, tasteScore, quantityScore, kindnessScore);
+    }
+
+    public OwnerReviewSummaryDTO getOwnerReviewSummary(Store store) {
+
+        List<ReviewContentDTO> contents = reviewRepository.findReviewContentsByStoreId(store.getId());
+
+        Long userCount = contents.stream().count(); // 리뷰를 남긴 전체 유저 수
+        Long totalScore = contents.stream().mapToLong(ReviewContentDTO::getScore).sum(); // 전체 평점 합계
+
+        Map<Taste, Long> tasteMap = contents.stream().collect(
+                Collectors.groupingBy(ReviewContentDTO::getTaste, Collectors.counting()));
+
+        Map<Quantity, Long> quantityMap = contents.stream().collect(
+                Collectors.groupingBy(ReviewContentDTO::getQuantity, Collectors.counting()));
+
+        Map<Kindness, Long> kindnessMap = contents.stream().collect(
+                Collectors.groupingBy(ReviewContentDTO::getKindness, Collectors.counting()));
+
+        return OwnerReviewSummaryDTO.builder()
+                .name(store.getName())
+                .userCount(userCount)
+                .totalScore(totalScore)
+                .tasteScore(tasteMap)
+                .quantityScore(quantityMap)
+                .kindnessScore(kindnessMap)
+                .build();
     }
 }

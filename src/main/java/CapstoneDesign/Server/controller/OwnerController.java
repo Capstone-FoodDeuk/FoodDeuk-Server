@@ -2,6 +2,7 @@ package CapstoneDesign.Server.controller;
 
 import CapstoneDesign.Server.config.annotation.TokenUser;
 import CapstoneDesign.Server.domain.dto.ApiResponse;
+import CapstoneDesign.Server.domain.dto.OwnerReviewSummaryDTO;
 import CapstoneDesign.Server.domain.dto.StoreDTO;
 import CapstoneDesign.Server.domain.dto.StoreOpenDTO;
 import CapstoneDesign.Server.domain.entity.store.Location;
@@ -9,6 +10,7 @@ import CapstoneDesign.Server.domain.entity.store.Store;
 import CapstoneDesign.Server.domain.entity.user.OwnerUser;
 import CapstoneDesign.Server.domain.entity.user.User;
 import CapstoneDesign.Server.repository.StoreRepository;
+import CapstoneDesign.Server.service.ReviewService;
 import CapstoneDesign.Server.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,7 @@ public class OwnerController {
 
     private final StoreRepository storeRepository;
     private final StoreService storeService;
+    private final ReviewService reviewService;
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping()
@@ -54,5 +57,15 @@ public class OwnerController {
             findStore.storeOpen(Boolean.TRUE);
         }
         return new ApiResponse(HttpStatus.OK, "푸드트럭 오픈 설정 성공", null);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/review")
+    public ApiResponse storeReview(@TokenUser User user) {
+        OwnerUser ownerUser = (OwnerUser) user;
+        Store findStore = storeRepository.findStoreByOwner(ownerUser);
+
+        OwnerReviewSummaryDTO result = reviewService.getOwnerReviewSummary(findStore);
+        return new ApiResponse(HttpStatus.OK, "사장님 계정 푸드트럭 리뷰정보 조회 성공", result);
     }
 }

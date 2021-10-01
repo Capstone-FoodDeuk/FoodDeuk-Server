@@ -13,7 +13,6 @@ import CapstoneDesign.Server.domain.entity.user.User;
 import CapstoneDesign.Server.exception.NotFoundStoreException;
 import CapstoneDesign.Server.repository.MenuRepository;
 import CapstoneDesign.Server.repository.PaymentRepository;
-import CapstoneDesign.Server.repository.ReviewRepository;
 import CapstoneDesign.Server.repository.StoreRepository;
 import CapstoneDesign.Server.service.ReviewService;
 import CapstoneDesign.Server.service.UserService;
@@ -47,7 +46,7 @@ public class StoreController {
         boolean zzimCheck = userService.checkZzimStore(guestUser, findStore); // 스토어 찜 여부
         List<StoreDetailMenuDTO> menuList = menuRepository.findMenuListByStoreId(findStore.getId()); // 메뉴 목록
         List<PaymentMethod> paymentMethods = paymentRepository.findPaymentMethodsByStoreId(findStore.getId()); // 결제수단 목록
-        StoreDetailReviewDTO reviewSummary = reviewService.getReviewSummary(findStore); // 리뷰 종합 정보
+        StoreDetailReviewDTO reviewSummary = reviewService.getStoreReviewSummary(findStore); // 리뷰 종합 정보
 
         StoreDetailDTO result = StoreDetailDTO.builder()
                 .name(findStore.getName())
