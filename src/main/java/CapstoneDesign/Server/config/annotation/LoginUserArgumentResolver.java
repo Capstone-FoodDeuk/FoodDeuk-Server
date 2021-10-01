@@ -2,9 +2,8 @@ package CapstoneDesign.Server.config.annotation;
 
 import CapstoneDesign.Server.config.auth.JwtTokenProvider;
 import CapstoneDesign.Server.domain.entity.user.User;
-import CapstoneDesign.Server.exception.UserNotFoundException;
+import CapstoneDesign.Server.exception.NotFoundUserException;
 import CapstoneDesign.Server.repository.UserRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
@@ -39,7 +38,7 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
 
         User findUser = userRepository.findUserByLoginId(loginId);
         if (findUser == null) {
-            throw new UserNotFoundException("해당 유저가 존재하지 않습니다");
+            throw new NotFoundUserException("해당 유저가 존재하지 않습니다");
         }
         return findUser;
     }
