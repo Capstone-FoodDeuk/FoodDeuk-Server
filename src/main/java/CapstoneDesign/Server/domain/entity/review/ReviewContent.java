@@ -13,7 +13,7 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 public class ReviewContent {
 
-    private Long overAllScore;
+    private Long score;
 
     @Enumerated(EnumType.STRING)
     private Taste taste;
