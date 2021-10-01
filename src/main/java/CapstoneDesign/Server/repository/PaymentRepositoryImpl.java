@@ -1,15 +1,15 @@
 package CapstoneDesign.Server.repository;
 
-import CapstoneDesign.Server.domain.entity.QPayment;
 import CapstoneDesign.Server.domain.entity.store.Payment;
 import CapstoneDesign.Server.domain.entity.store.PaymentMethod;
+import CapstoneDesign.Server.domain.entity.store.QPayment;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static CapstoneDesign.Server.domain.entity.QPayment.*;
+import static CapstoneDesign.Server.domain.entity.store.QPayment.payment;
 
 @RequiredArgsConstructor
 public class PaymentRepositoryImpl implements PaymentRepositoryCustom {

@@ -1,15 +1,14 @@
 package CapstoneDesign.Server.repository;
 
 import CapstoneDesign.Server.domain.dto.StoreDetailMenuDTO;
-import CapstoneDesign.Server.domain.entity.QMenu;
-import CapstoneDesign.Server.domain.entity.store.Store;
+import CapstoneDesign.Server.domain.entity.store.QMenu;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import static CapstoneDesign.Server.domain.entity.QMenu.*;
+import static CapstoneDesign.Server.domain.entity.store.QMenu.menu;
 
 @RequiredArgsConstructor
 public class MenuRepositryImpl implements MenuRepositoryCustom{
