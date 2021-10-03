@@ -1,6 +1,6 @@
 package CapstoneDesign.Server.controller;
 
-import CapstoneDesign.Server.config.annotation.TokenUser;
+import CapstoneDesign.Server.config.resolver.TokenUser;
 import CapstoneDesign.Server.domain.dto.ApiResponse;
 import CapstoneDesign.Server.domain.dto.OwnerReviewSummaryDTO;
 import CapstoneDesign.Server.domain.dto.StoreDTO;

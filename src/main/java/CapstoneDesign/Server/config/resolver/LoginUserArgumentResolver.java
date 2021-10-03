@@ -1,4 +1,4 @@
-package CapstoneDesign.Server.config.annotation;
+package CapstoneDesign.Server.config.resolver;
 
 import CapstoneDesign.Server.config.auth.JwtTokenProvider;
 import CapstoneDesign.Server.domain.entity.user.User;

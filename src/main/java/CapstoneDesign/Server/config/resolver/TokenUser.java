@@ -1,4 +1,4 @@
-package CapstoneDesign.Server.config.annotation;
+package CapstoneDesign.Server.config.resolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

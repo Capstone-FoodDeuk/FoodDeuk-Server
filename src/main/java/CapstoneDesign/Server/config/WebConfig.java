@@ -1,6 +1,6 @@
 package CapstoneDesign.Server.config;
 
-import CapstoneDesign.Server.config.annotation.LoginUserArgumentResolver;
+import CapstoneDesign.Server.config.resolver.LoginUserArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
