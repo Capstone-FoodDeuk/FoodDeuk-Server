@@ -3,8 +3,11 @@ package CapstoneDesign.Server.repository;
 import CapstoneDesign.Server.domain.dto.StoreDetailMenuDTO;
 import CapstoneDesign.Server.domain.entity.store.Menu;
 import CapstoneDesign.Server.domain.entity.store.Store;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +16,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@DataJpaTest
 @SpringBootTest
 @Transactional
 class MenuRepositryImplTest {
-
 
     @Autowired
     EntityManager em;
