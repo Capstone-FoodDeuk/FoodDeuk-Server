@@ -39,4 +39,12 @@ public class Review extends BaseTimeEntity {
         guestUser.getReviewList().add(review);
         return review;
     }
+
+    /**
+     * set content
+     */
+    public void writeReview(Long score, Taste taste, Quantity quantity, Kindness kindness) {
+        ReviewContent content = new ReviewContent(score, taste, quantity, kindness);
+        this.content = content;
+    }
 }

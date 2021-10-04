@@ -2,11 +2,14 @@ package CapstoneDesign.Server.service;
 
 import CapstoneDesign.Server.domain.dto.OwnerReviewSummaryDTO;
 import CapstoneDesign.Server.domain.dto.ReviewContentDTO;
+import CapstoneDesign.Server.domain.dto.ReviewDTO;
 import CapstoneDesign.Server.domain.dto.StoreDetailReviewDTO;
 import CapstoneDesign.Server.domain.entity.review.Kindness;
 import CapstoneDesign.Server.domain.entity.review.Quantity;
+import CapstoneDesign.Server.domain.entity.review.Review;
 import CapstoneDesign.Server.domain.entity.review.Taste;
 import CapstoneDesign.Server.domain.entity.store.Store;
+import CapstoneDesign.Server.domain.entity.user.GuestUser;
 import CapstoneDesign.Server.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -111,5 +114,13 @@ public class ReviewService {
                 .quantityScore(quantityMap)
                 .kindnessScore(kindnessMap)
                 .build();
+    }
+
+    public void createReview(Store store, GuestUser user, ReviewDTO content) {
+
+        Review newReview = Review.createReview(store, user);
+        newReview.writeReview(content.getScore(), content.getTaste(), content.getQuantity(), content.getKindness());
+
+        reviewRepository.save(newReview);
     }
 }

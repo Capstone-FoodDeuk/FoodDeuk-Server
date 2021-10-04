@@ -10,6 +10,7 @@ import CapstoneDesign.Server.domain.entity.user.User;
 import CapstoneDesign.Server.exception.NotFoundStoreException;
 import CapstoneDesign.Server.repository.ReviewRepository;
 import CapstoneDesign.Server.repository.StoreRepository;
+import CapstoneDesign.Server.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class ReviewController {
 
     private final StoreRepository storeRepository;
-    private final ReviewRepository reviewRepository;
+    private final ReviewService reviewService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{storeId}")
@@ -29,8 +30,7 @@ public class ReviewController {
         GuestUser guestUser = (GuestUser) user;
         Store findStore = storeRepository.findById(id).orElseThrow(() -> new NotFoundStoreException());
 
-        Review newReview = Review.createReview(findStore, guestUser);
-        reviewRepository.save(newReview);
+        reviewService.createReview(findStore, guestUser, review);
 
         return new ApiResponse(HttpStatus.CREATED, "리뷰 생성 성공", null);
     }
