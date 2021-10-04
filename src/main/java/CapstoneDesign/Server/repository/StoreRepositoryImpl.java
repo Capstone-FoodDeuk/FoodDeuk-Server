@@ -1,18 +1,16 @@
 package CapstoneDesign.Server.repository;
 
 import CapstoneDesign.Server.domain.dto.HomeStoreDTO;
-import CapstoneDesign.Server.domain.entity.store.QMenu;
-import CapstoneDesign.Server.domain.entity.store.QStore;
+import CapstoneDesign.Server.domain.entity.store.Store;
 import com.querydsl.core.types.Ops;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static CapstoneDesign.Server.domain.entity.store.QMenu.menu;
 import static CapstoneDesign.Server.domain.entity.store.QStore.store;
 import static com.querydsl.core.types.dsl.MathExpressions.*;
 
@@ -31,18 +29,21 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom{
                 .having(Expressions.predicate(Ops.LOE, Expressions.asNumber(getDistanceExpression(latitude, longitude)), Expressions.asNumber(distance)))
                 .fetch();
 
-        return queryFactory.select(Projections.fields(HomeStoreDTO.class,
-                store.id,
-                store.category,
-                store.location.latitude,
-                store.location.longitude))
-                .from(store).distinct()
-                .innerJoin(store.menuList, menu).fetchJoin()
+        List<Store> stores = queryFactory
+                .selectFrom(store).distinct()
                 .where(
                         store.id.in(storeIds),
                         store.isActive.eq(true)
                 )
                 .fetch();
+
+        return stores.stream()
+                .map(s -> new HomeStoreDTO(
+                        s.getId(),
+                        s.getCategory(),
+                        s.getLocation().getLatitude(),
+                        s.getLocation().getLongitude()))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -50,6 +51,8 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom{
      * -
      * 6371 * acos(cos(radians(:latitude)) * cos(radians(store.latitude)) * cos(radians(store.longitude)
      * - radians(:longitude)) + sin(radians(:latitude)) * sin(radians(store.latitude)))) as distance
+     *
+     * result < N이라면, 반경 N(km)안에 있는 스토어를 조회할 수 있다.
      */
     private NumberExpression<Double> getDistanceExpression(double latitude, double longitude) {
         return acos(sin(radians(Expressions.constant(latitude)))

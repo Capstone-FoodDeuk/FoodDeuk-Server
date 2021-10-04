@@ -6,7 +6,6 @@ import CapstoneDesign.Server.domain.dto.MenuUpdateDTO;
 import CapstoneDesign.Server.domain.entity.store.*;
 import CapstoneDesign.Server.exception.DuplicatedMenuException;
 import CapstoneDesign.Server.exception.NotFoundMenuException;
-import CapstoneDesign.Server.exception.NotFoundStoreException;
 import CapstoneDesign.Server.repository.MenuRepository;
 import CapstoneDesign.Server.repository.PaymentRepository;
 import CapstoneDesign.Server.repository.StoreRepository;
@@ -85,6 +84,7 @@ public class StoreService {
 
         List<HomeStoreDTO> nearStores = storeRepository.findActiveStoresByLocationLessThanDistance(
                 latitude, longitude, LIMIT_DISTANCE);
+
         return nearStores;
     }
 }
