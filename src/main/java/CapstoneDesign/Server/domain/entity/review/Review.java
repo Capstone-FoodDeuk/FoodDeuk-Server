@@ -35,6 +35,7 @@ public class Review extends BaseTimeEntity {
     public static Review createReview(Store store, GuestUser guestUser) {
         Review review = new Review();
         review.store = store;
+        review.author = guestUser;
         store.getReviewList().add(review);
         guestUser.getReviewList().add(review);
         return review;
