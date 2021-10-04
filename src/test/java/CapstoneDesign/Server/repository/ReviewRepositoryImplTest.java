@@ -4,18 +4,13 @@ import CapstoneDesign.Server.domain.dto.ReviewContentDTO;
 import CapstoneDesign.Server.domain.dto.ReviewDTO;
 import CapstoneDesign.Server.domain.entity.review.Kindness;
 import CapstoneDesign.Server.domain.entity.review.Quantity;
-import CapstoneDesign.Server.domain.entity.review.Review;
 import CapstoneDesign.Server.domain.entity.review.Taste;
 import CapstoneDesign.Server.domain.entity.store.Store;
 import CapstoneDesign.Server.domain.entity.user.GuestUser;
 import CapstoneDesign.Server.service.ReviewService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -23,8 +18,6 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
 
 @SpringBootTest
 @Transactional
