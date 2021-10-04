@@ -2,6 +2,7 @@ package CapstoneDesign.Server.repository;
 
 import CapstoneDesign.Server.domain.dto.ReviewContentDTO;
 import CapstoneDesign.Server.domain.dto.ReviewDTO;
+import CapstoneDesign.Server.domain.dto.UserPageReviewDTO;
 import CapstoneDesign.Server.domain.entity.review.Kindness;
 import CapstoneDesign.Server.domain.entity.review.Quantity;
 import CapstoneDesign.Server.domain.entity.review.Taste;
@@ -69,4 +70,35 @@ class ReviewRepositoryImplTest {
         assertThat(result).extracting("quantity").containsExactly(Quantity.SoSo, Quantity.Enough);
         assertThat(result).extracting("kindness").containsExactly(Kindness.Bad, Kindness.Kind);
     }
-}5
+
+    @Test
+    public void 유저ID값으로_해당유저의_리뷰_가져오기() {
+
+        // given
+        Store store1 = new Store();
+        Store store2 = new Store();
+        GuestUser user = GuestUser.builder()
+                .loginId("user1")
+                .password("pwd1234")
+                .nickname("나는유저")
+                .phoneNumber("010-1234-5678")
+                .build();
+
+        em.persist(store1);
+        em.persist(store2);
+        em.persist(user);
+
+        reviewService.createReview(store1, user,
+                new ReviewDTO(3L, Taste.Good, Quantity.SoSo, Kindness.Bad));
+        reviewService.createReview(store2, user,
+                new ReviewDTO(4L, Taste.Bad, Quantity.SoSo, Kindness.Kind));
+
+        // when
+        List<UserPageReviewDTO> result = reviewRepository.findMyReviewsByUserId(user.getId());
+
+        // then
+        assertThat(result).hasSize(2);
+        assertThat(result).extracting("score").containsExactly(3L, 4L);
+        assertThat(result).extracting("kindness").containsExactly(Kindness.Bad, Kindness.Kind);
+    }
+}
