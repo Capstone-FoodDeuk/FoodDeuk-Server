@@ -2,7 +2,6 @@ package CapstoneDesign.Server.repository;
 
 import CapstoneDesign.Server.domain.entity.store.Payment;
 import CapstoneDesign.Server.domain.entity.store.PaymentMethod;
-import CapstoneDesign.Server.domain.entity.store.QPayment;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 

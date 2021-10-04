@@ -1,5 +1,6 @@
 package CapstoneDesign.Server.domain.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
@@ -18,4 +19,11 @@ public class StoreDetailMenuDTO {
 
     @NotNull
     private boolean soldOut;
+
+    @QueryProjection
+    public StoreDetailMenuDTO(@NotBlank String name, @NotBlank @Min(value = 10) Long price, @NotNull boolean soldOut) {
+        this.name = name;
+        this.price = price;
+        this.soldOut = soldOut;
+    }
 }
