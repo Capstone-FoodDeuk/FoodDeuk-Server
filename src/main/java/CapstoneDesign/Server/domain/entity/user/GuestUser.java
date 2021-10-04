@@ -21,7 +21,7 @@ public class GuestUser extends User {
     @OneToMany(mappedBy = "author")
     private List<Review> reviewList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Zzim> zzimList = new ArrayList<>();
 
     @Builder
