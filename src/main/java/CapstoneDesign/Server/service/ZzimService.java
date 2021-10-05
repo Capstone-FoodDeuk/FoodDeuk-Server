@@ -15,6 +15,6 @@ public class ZzimService {
     public boolean checkZzimStore(GuestUser user, Store store) {
 
         return zzimRepository.findZzimsByUser(user).stream()
-                .anyMatch(z -> z.getStore().equals(user));
+                .anyMatch(z -> z.getStore().equals(store));
     }
 }
