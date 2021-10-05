@@ -8,6 +8,7 @@ import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,10 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom{
                 .groupBy(store.id, store.location.latitude, store.location.longitude)
                 .having(Expressions.predicate(Ops.LOE, Expressions.asNumber(getDistanceExpression(latitude, longitude)), Expressions.asNumber(distance)))
                 .fetch();
+
+        if (storeIds.isEmpty()) {
+            return new ArrayList<>();
+        }
 
         List<Store> stores = queryFactory
                 .selectFrom(store).distinct()
