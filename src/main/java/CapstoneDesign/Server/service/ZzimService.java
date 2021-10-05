@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class ZzimService {
 
     private final ZzimRepository zzimRepository;
 

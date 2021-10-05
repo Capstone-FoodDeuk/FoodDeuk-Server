@@ -15,7 +15,7 @@ import CapstoneDesign.Server.repository.MenuRepository;
 import CapstoneDesign.Server.repository.PaymentRepository;
 import CapstoneDesign.Server.repository.StoreRepository;
 import CapstoneDesign.Server.service.ReviewService;
-import CapstoneDesign.Server.service.UserService;
+import CapstoneDesign.Server.service.ZzimService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +32,7 @@ public class StoreController {
     private final MenuRepository menuRepository;
     private final PaymentRepository paymentRepository;
     private final ReviewService reviewService;
-    private final UserService userService;
+    private final ZzimService zzimService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{storeId}")
@@ -43,7 +43,7 @@ public class StoreController {
         Store findStore = storeRepository.findById(id).orElseThrow(() -> new NotFoundStoreException());
         OwnerUser ownerUser = findStore.getOwner();
 
-        boolean zzimCheck = userService.checkZzimStore(guestUser, findStore); // 스토어 찜 여부
+        boolean zzimCheck = zzimService.checkZzimStore(guestUser, findStore); // 스토어 찜 여부
         List<StoreDetailMenuDTO> menuList = menuRepository.findMenuListByStoreId(findStore.getId()); // 메뉴 목록
         List<PaymentMethod> paymentMethods = paymentRepository.findPaymentMethodsByStoreId(findStore.getId()); // 결제수단 목록
         StoreDetailReviewDTO reviewSummary = reviewService.getStoreReviewSummary(findStore); // 리뷰 종합 정보
