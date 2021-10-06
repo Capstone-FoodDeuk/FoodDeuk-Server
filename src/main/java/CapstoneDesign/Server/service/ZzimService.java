@@ -6,6 +6,7 @@ import CapstoneDesign.Server.domain.entity.user.GuestUser;
 import CapstoneDesign.Server.repository.ZzimRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,6 @@ public class ZzimService {
             zzimRepository.save(new Zzim(user, store));
             return;
         }
-        zzimRepository.deleteById(zzim.getId());
+        user.getZzimList().remove(zzim);
     }
 }
