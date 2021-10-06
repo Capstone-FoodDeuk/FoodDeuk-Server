@@ -22,7 +22,7 @@ public class StoreDTO {
 
     private List<MenuCreateDTO> createMenus;
     private List<MenuUpdateDTO> updateMenus;
-    private List<MenuUpdateDTO> deleteMenus;
+    private List<MenuDeleteDTO> deleteMenus;
 
     private List<PaymentMethod> payments;
 }

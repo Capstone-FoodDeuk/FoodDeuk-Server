@@ -2,6 +2,7 @@ package CapstoneDesign.Server.service;
 
 import CapstoneDesign.Server.domain.dto.HomeStoreDTO;
 import CapstoneDesign.Server.domain.dto.MenuCreateDTO;
+import CapstoneDesign.Server.domain.dto.MenuDeleteDTO;
 import CapstoneDesign.Server.domain.dto.MenuUpdateDTO;
 import CapstoneDesign.Server.domain.entity.store.*;
 import CapstoneDesign.Server.exception.DuplicatedMenuException;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +33,7 @@ public class StoreService {
     @Transactional
     public void updateStoreInfo(Store store, String name, Category category, String registerNum, String description,
                                 List<MenuCreateDTO> createMenus, List<MenuUpdateDTO> updateMenus,
-                                List<MenuUpdateDTO> deleteMenus, List<PaymentMethod> payments) throws IOException {
+                                List<MenuDeleteDTO> deleteMenus, List<PaymentMethod> payments) throws IOException {
 
         store.updateStoreInfo(name, category, registerNum, description);
 
@@ -44,8 +46,9 @@ public class StoreService {
             }
         }
         if (!deleteMenus.isEmpty()) {
-            for (MenuUpdateDTO deleteMenu : deleteMenus) {
-                menuRepository.deleteById(deleteMenu.getId());
+            for (MenuDeleteDTO deleteMenu : deleteMenus) {
+                Menu findMenu = menuRepository.findById(deleteMenu.getId()).orElseThrow(() -> new NotFoundMenuException());
+                store.getMenuList().remove(findMenu);
             }
         }
         if (!updateMenus.isEmpty()) {
