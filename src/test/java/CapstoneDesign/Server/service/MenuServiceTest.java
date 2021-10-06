@@ -73,6 +73,7 @@ class MenuServiceTest {
                 new FileInputStream("/Users/ajyng/Desktop/logo.png"));
         menu.setImage(image);
 
+
         // when
         menuService.createMenu(menu, store);
 
