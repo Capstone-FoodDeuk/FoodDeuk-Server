@@ -66,18 +66,17 @@ public class StoreService {
          */
         for (PaymentMethod paymentMethod : payments) {
             Payment payment = paymentRepository.findPaymentByStoreAndMethod(store, paymentMethod);
-            if (payment != null) {
-                throw new DuplicatedMenuException("이미 존재하는 메뉴입니다");
+            if (payment == null) {
+                Payment newPayment = new Payment(store, paymentMethod);
+                paymentRepository.save(newPayment);
             }
-            Payment newPayment = new Payment(store, paymentMethod);
-            paymentRepository.save(newPayment);
         }
         List<Payment> removePayment = paymentRepository.findPaymentsByStore(store).stream()
                 .filter(payment -> !payments.contains(payment.getMethod()))
                 .collect(Collectors.toList());
         if (!removePayment.isEmpty()) {
             for (Payment payment : removePayment) {
-                paymentRepository.delete(payment);
+                store.getPayments().remove(payment);
             }
         }
 
